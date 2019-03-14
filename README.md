@@ -2,8 +2,6 @@ Author: George Mostyn-Parry\
 Compiled using Godot 3.0 in GDScript.\
 Started in December 2018, and worked on most recently in January 2019.
 
-The project files include a Windows executable in the "Export" folder.
-
 A small game with most of the work done on ensuring robustness of the lobby, and networking, system.
 User can start a game by joining a lobby and then all players reading up; this can be done singleplayer by pressing the Host button, and then the Ready button.
 User can move and fire the gun of a Walker; represented by a circle.
