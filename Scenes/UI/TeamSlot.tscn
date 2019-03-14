@@ -1,0 +1,265 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/UI/TeamSlot.gd" type="Script" id=1]
+
+
+[sub_resource type="Theme" id=1]
+
+
+[node name="TeamSlot" type="PanelContainer" index="0"]
+
+pause_mode = 2
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 181.0
+margin_bottom = 168.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause", "Theme" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ordering" type="VBoxContainer" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 240.0
+margin_bottom = 161.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_constants/separation = 5
+alignment = 0
+_sections_unfolded = [ "Size Flags", "custom_constants" ]
+
+[node name="Identifiers" type="HBoxContainer" parent="Ordering" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 233.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Name" type="LineEdit" parent="Ordering/Identifiers" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+hint_tooltip = "Change the name of the team here."
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 3
+size_flags_vertical = 1
+editable = false
+focus_mode = 2
+context_menu_enabled = true
+placeholder_text = "Team Name"
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
+_sections_unfolded = [ "Hint", "Placeholder", "Rect" ]
+
+[node name="Colour" type="ColorPickerButton" parent="Ordering/Identifiers" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 233.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 29, 24 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+hint_tooltip = "Change the team colour here."
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+color = Color( 1, 1, 1, 1 )
+edit_alpha = false
+_sections_unfolded = [ "Hint" ]
+
+[node name="VehicleView" type="CenterContainer" parent="Ordering" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 29.0
+margin_right = 233.0
+margin_bottom = 129.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+hint_tooltip = "The preview for the vehicle the team is using; change the colour with the colour selector."
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+_sections_unfolded = [ "Hint" ]
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Ordering/VehicleView" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 66.0
+margin_right = 166.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource( 1 )
+stretch = false
+stretch_shrink = 1
+_sections_unfolded = [ "Rect", "Theme" ]
+
+[node name="Viewport" type="Viewport" parent="Ordering/VehicleView/ViewportContainer" index="0"]
+
+arvr = false
+size = Vector2( 100, 100 )
+own_world = false
+world = null
+transparent_bg = false
+msaa = 0
+hdr = true
+disable_3d = false
+usage = 2
+debug_draw = 0
+render_target_v_flip = false
+render_target_clear_mode = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = false
+audio_listener_enable_3d = false
+physics_object_picking = false
+gui_disable_input = false
+gui_snap_controls_to_pixels = true
+shadow_atlas_size = 0
+shadow_atlas_quad_0 = 2
+shadow_atlas_quad_1 = 2
+shadow_atlas_quad_2 = 3
+shadow_atlas_quad_3 = 4
+
+[node name="Vehicle" type="Sprite" parent="Ordering/VehicleView/ViewportContainer/Viewport" index="0"]
+
+[node name="Controls" type="HBoxContainer" parent="Ordering" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 134.0
+margin_right = 233.0
+margin_bottom = 154.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="BecomeDriver" type="Button" parent="Ordering/Controls" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 114.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+hint_tooltip = "Become a driver for this team."
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Driver"
+flat = false
+align = 1
+_sections_unfolded = [ "Hint" ]
+
+[node name="BecomeGunner" type="Button" parent="Ordering/Controls" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 118.0
+margin_right = 233.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+hint_tooltip = "Become a gunner for this team."
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Gunner"
+flat = false
+align = 1
+_sections_unfolded = [ "Hint", "Size Flags" ]
+
+[connection signal="focus_exited" from="Ordering/Identifiers/Name" to="." method="_on_Name_focus_exited"]
+
+[connection signal="text_entered" from="Ordering/Identifiers/Name" to="." method="_on_Name_text_entered"]
+
+[connection signal="pressed" from="Ordering/Controls/BecomeDriver" to="." method="_on_player_join_team" binds= [ true ]]
+
+[connection signal="pressed" from="Ordering/Controls/BecomeGunner" to="." method="_on_player_join_team" binds= [ false ]]
+
+

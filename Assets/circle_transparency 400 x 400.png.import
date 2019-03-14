@@ -1,0 +1,29 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/circle_transparency 400 x 400.png-57337a7f0af74d67c8fddb9733888729.stex"
+
+[deps]
+
+source_file="res://Assets/circle_transparency 400 x 400.png"
+dest_files=[ "res://.import/circle_transparency 400 x 400.png-57337a7f0af74d67c8fddb9733888729.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=1
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

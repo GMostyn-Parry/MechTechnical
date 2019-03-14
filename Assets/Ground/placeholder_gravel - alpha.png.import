@@ -1,0 +1,29 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/placeholder_gravel - alpha.png-2e10eccfe206e082b6783f97c6e6d02c.stex"
+
+[deps]
+
+source_file="res://Assets/Ground/placeholder_gravel - alpha.png"
+dest_files=[ "res://.import/placeholder_gravel - alpha.png-2e10eccfe206e082b6783f97c6e6d02c.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=1
+flags/filter=false
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0
