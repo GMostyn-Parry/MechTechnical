@@ -7,72 +7,40 @@
 [ext_resource path="res://Scenes/Menus/OptionsMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Dialogs/JoinServerDialog.tscn" type="PackedScene" id=6]
 
-[node name="Menu" type="Panel" index="0"]
-
+[node name="Menu" type="Panel"]
 pause_mode = 2
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause" ]
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="StartMenu" parent="." index="0" instance=ExtResource( 2 )]
+[node name="StartMenu" parent="." instance=ExtResource( 2 )]
 
-[node name="Lobby" parent="." index="1" instance=ExtResource( 3 )]
-
+[node name="Lobby" parent="." instance=ExtResource( 3 )]
 visible = false
 
-[node name="ConnectScreen" parent="." index="2" instance=ExtResource( 4 )]
-
+[node name="ConnectScreen" parent="." instance=ExtResource( 4 )]
 visible = false
 
-[node name="OptionsMenu" parent="." index="3" instance=ExtResource( 5 )]
-
+[node name="OptionsMenu" parent="." instance=ExtResource( 5 )]
 visible = false
 
-[node name="Dialogs" type="Node" parent="." index="4"]
+[node name="Dialogs" type="Node" parent="."]
 
-[node name="JoinServerDialog" parent="Dialogs" index="0" instance=ExtResource( 6 )]
+[node name="JoinServerDialog" parent="Dialogs" instance=ExtResource( 6 )]
 
-visible = false
-
-[node name="HostFailDialog" type="AcceptDialog" parent="Dialogs" index="1"]
-
+[node name="HostFailDialog" type="AcceptDialog" parent="Dialogs"]
 editor/display_folded = true
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 474.0
 margin_top = 364.0
 margin_right = 819.0
 margin_bottom = 439.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-popup_exclusive = false
 window_title = "Can Not Start Server"
-resizable = false
-dialog_hide_on_ok = true
-_sections_unfolded = [ "Dialog" ]
 
-[node name="CentredLabel" type="Label" parent="Dialogs/HostFailDialog" index="3"]
-
+[node name="CentredLabel" type="Label" parent="Dialogs/HostFailDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -81,46 +49,20 @@ margin_left = -164.5
 margin_top = -29.5
 margin_right = 164.5
 margin_bottom = 1.5
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 text = "The program is unable to start a server on this port.
 Are you already hosting a server?"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
-[node name="JoinFailDialog" type="AcceptDialog" parent="Dialogs" index="2"]
-
+[node name="JoinFailDialog" type="AcceptDialog" parent="Dialogs"]
 editor/display_folded = true
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 474.0
 margin_top = 364.0
 margin_right = 834.0
 margin_bottom = 473.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-popup_exclusive = false
 window_title = "Can Not Join Server"
-resizable = false
-dialog_hide_on_ok = true
-_sections_unfolded = [ "Dialog" ]
 
-[node name="CentredLabel" type="Label" parent="Dialogs/JoinFailDialog" index="3"]
-
+[node name="CentredLabel" type="Label" parent="Dialogs/JoinFailDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -129,34 +71,17 @@ margin_left = -172.0
 margin_top = -46.5
 margin_right = 172.0
 margin_bottom = 18.5
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 text = "The program is unable to create a network connection
 to join the server.
 
 Try restarting the program."
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [connection signal="host_game" from="StartMenu" to="." method="_on_StartMenu_host_game"]
-
 [connection signal="join_game" from="StartMenu" to="." method="_on_StartMenu_join_game"]
-
 [connection signal="open_options" from="StartMenu" to="." method="_on_StartMenu_open_options"]
-
 [connection signal="cancel_connect" from="ConnectScreen" to="." method="_on_ConnectScreen_cancel_connect"]
-
 [connection signal="hide" from="OptionsMenu" to="OptionsMenu" method="_on_OptionsMenu_hide"]
-
 [connection signal="leave_options" from="OptionsMenu" to="." method="_on_OptionsMenu_leave_options"]
-
 [connection signal="confirmed" from="Dialogs/JoinServerDialog" to="." method="_on_JoinServerDialog_confirmed"]
-
-

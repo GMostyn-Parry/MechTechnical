@@ -14,55 +14,39 @@
 [ext_resource path="res://Scripts/Shaders/StunOverlay.shader" type="Shader" id=12]
 
 [sub_resource type="ShaderMaterial" id=1]
-
-render_priority = 0
 shader = ExtResource( 2 )
 shader_param/r = ExtResource( 7 )
 shader_param/g = ExtResource( 6 )
 shader_param/b = ExtResource( 4 )
 shader_param/a = ExtResource( 3 )
 shader_param/exclude = ExtResource( 5 )
-_sections_unfolded = [ "Resource", "shader_param" ]
 
 [sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 10, 4096 )
 
 [sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
 extents = Vector2( 4096, 10 )
 
-[sub_resource type="ShaderMaterial" id=5]
-
-render_priority = 0
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 12 )
 shader_param/time_starting = 2.0
 shader_param/time_left = 1.0
-_sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="Gradient" id=6]
-
+[sub_resource type="Gradient" id=5]
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=7]
-
-flags = 4
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 width = 1
 
-[node name="Game" type="Node2D" index="0"]
-
+[node name="Game" type="Node2D"]
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Background" type="Sprite" parent="." index="0"]
-
+[node name="Background" type="Sprite" parent="."]
 editor/display_folded = true
 light_mask = 3
 material = SubResource( 1 )
@@ -71,190 +55,87 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 8192, 8192 )
 script = ExtResource( 9 )
-_sections_unfolded = [ "Material", "Region", "Visibility" ]
 __meta__ = {
 "_edit_lock_": true
 }
 brush = ExtResource( 10 )
-brush_strength = 1.0
 
-[node name="PaintingTools" type="CanvasLayer" parent="Background" index="0"]
+[node name="PaintingTools" type="CanvasLayer" parent="Background"]
 
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-
-[node name="StrengthControl" type="PanelContainer" parent="Background/PaintingTools" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="StrengthControl" type="PanelContainer" parent="Background/PaintingTools"]
 margin_right = 34.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
 
-[node name="Ordering" type="VBoxContainer" parent="Background/PaintingTools/StrengthControl" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Ordering" type="VBoxContainer" parent="Background/PaintingTools/StrengthControl"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 27.0
 margin_bottom = 93.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 alignment = 1
 
-[node name="BrushStrength" type="VSlider" parent="Background/PaintingTools/StrengthControl/Ordering" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="BrushStrength" type="VSlider" parent="Background/PaintingTools/StrengthControl/Ordering"]
 margin_right = 20.0
 margin_bottom = 68.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 focus_mode = 1
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 min_value = 0.2
 max_value = 1.0
 step = 0.2
-page = 0.0
 value = 1.0
-exp_edit = false
-rounded = false
-editable = true
 tick_count = 5
 ticks_on_borders = true
 focus_mode = 1
-_sections_unfolded = [ "Size Flags" ]
 
-[node name="Label" type="Label" parent="Background/PaintingTools/StrengthControl/Ordering" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Label" type="Label" parent="Background/PaintingTools/StrengthControl/Ordering"]
 margin_top = 72.0
 margin_right = 20.0
 margin_bottom = 86.0
 rect_min_size = Vector2( 20, 0 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 text = "1.0"
 align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Rect" ]
 
-[node name="Wall" type="StaticBody2D" parent="." index="1"]
-
+[node name="Wall" type="StaticBody2D" parent="."]
 editor/display_folded = true
-input_pickable = false
-collision_layer = 1
 collision_mask = 0
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-_sections_unfolded = [ "Collision" ]
 
-[node name="Left" type="CollisionShape2D" parent="Wall" index="0"]
-
+[node name="Left" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 0, 4096 )
 shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Right" type="CollisionShape2D" parent="Wall" index="1"]
-
+[node name="Right" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 8192, 4096 )
 shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Top" type="CollisionShape2D" parent="Wall" index="2"]
-
+[node name="Top" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 4096, 0 )
 shape = SubResource( 3 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Bottom" type="CollisionShape2D" parent="Wall" index="3"]
-
+[node name="Bottom" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 4096, 8192 )
 shape = SubResource( 3 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Debris" type="Node2D" parent="." index="2"]
+[node name="Debris" type="Node2D" parent="."]
 
-[node name="Bullets" type="Node2D" parent="." index="3"]
-
+[node name="Bullets" type="Node2D" parent="."]
 script = ExtResource( 11 )
-trail_speed = 50
 
-[node name="Walkers" type="Node2D" parent="." index="4"]
+[node name="Walkers" type="Node2D" parent="."]
 
-[node name="Timers" type="Node" parent="." index="5"]
+[node name="Timers" type="Node" parent="."]
 
-[node name="ReturnTimer" type="Timer" parent="Timers" index="0"]
+[node name="ReturnTimer" type="Timer" parent="Timers"]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
+[node name="Effects" type="CanvasLayer" parent="."]
 
-[node name="Effects" type="CanvasLayer" parent="." index="6"]
-
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-
-[node name="StunOverlay" type="TextureRect" parent="Effects" index="0"]
-
+[node name="StunOverlay" type="TextureRect" parent="Effects"]
 visible = false
-material = SubResource( 5 )
-anchor_left = 0.0
-anchor_top = 0.0
+material = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = SubResource( 7 )
+texture = SubResource( 6 )
 expand = true
-stretch_mode = 0
-_sections_unfolded = [ "Material" ]
 
 [connection signal="value_changed" from="Background/PaintingTools/StrengthControl/Ordering/BrushStrength" to="Background" method="_on_BrushStrength_value_changed"]
-
 [connection signal="timeout" from="Timers/ReturnTimer" to="." method="_on_ReturnTimer_timeout"]
-
-
