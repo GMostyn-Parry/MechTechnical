@@ -1,12 +1,13 @@
 Author: George Mostyn-Parry\
-Compiled using Godot 3.0 in GDScript.\
-Started in December 2018, and worked on most recently in January 2019.
+Compiled using Godot 3.1 in GDScript.\
+Started in December 2018, and worked on most recently in April 2019.
 
 A small game with most of the work done on ensuring robustness of the lobby, and networking, system.
 User can start a game by joining a lobby and then all players reading up; this can be done singleplayer by pressing the Host button, and then the Ready button.
 User can move and fire the gun of a Walker; represented by a circle.
 User can paint the ground with simple canvas editing tools enabled with the F4 key.
-
+# Demonstration Video
+https://youtu.be/VDKn8AFpIHw
 # Menu
 The user can host a lobby by pressing the Host button; or join a lobby by pressing the Join button, and then entering their name and the details of the server.
 The options menu may be opened by pressing the Options button, but there are currently no configurable options.
