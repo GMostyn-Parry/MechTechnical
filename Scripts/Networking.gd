@@ -7,8 +7,8 @@ Also handles teams, and their information.
 extends Node
 
 #Default networking values.
-var DEFAULT_PORT = 27005
-var DEFAULT_MAX_PLAYERS = 8
+const DEFAULT_PORT = 27005
+const DEFAULT_MAX_PLAYERS = 8
 
 #Stores all of the information on the connected players uses their unique id as an index.
 var _info_players = Dictionary()
