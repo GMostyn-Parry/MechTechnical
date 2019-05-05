@@ -77,7 +77,6 @@ to join the server.
 Try restarting the program."
 align = 1
 valign = 1
-
 [connection signal="host_game" from="StartMenu" to="." method="_on_StartMenu_host_game"]
 [connection signal="join_game" from="StartMenu" to="." method="_on_StartMenu_join_game"]
 [connection signal="open_options" from="StartMenu" to="." method="_on_StartMenu_open_options"]

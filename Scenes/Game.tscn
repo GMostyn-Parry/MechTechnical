@@ -1,25 +1,26 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/GameManager.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/Shaders/RGBA Depth Blending.shader" type="Shader" id=2]
-[ext_resource path="res://Assets/Ground/placeholder_gravel - alpha.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Ground/placeholder_rock - alpha.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Ground/placeholder_sand - alpha.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Ground/placeholder_dirt - alpha.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Ground/placeholder_grass2 - alpha.png" type="Texture" id=7]
-[ext_resource path="res://Assets/placeholder_blend5.png" type="Texture" id=8]
-[ext_resource path="res://Scripts/GroundPainting.gd" type="Script" id=9]
-[ext_resource path="res://Assets/Brushes/brush_circle2 75.png" type="Texture" id=10]
-[ext_resource path="res://Scripts/BulletsEffects.gd" type="Script" id=11]
-[ext_resource path="res://Scripts/Shaders/StunOverlay.shader" type="Shader" id=12]
+[ext_resource path="res://Scripts/FollowCamera.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Shaders/RGBA Depth Blending.shader" type="Shader" id=3]
+[ext_resource path="res://Assets/Ground/placeholder_gravel - alpha.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Ground/placeholder_rock - alpha.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Ground/placeholder_sand - alpha.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Ground/placeholder_dirt - alpha.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Ground/placeholder_grass2 - alpha.png" type="Texture" id=8]
+[ext_resource path="res://Assets/placeholder_blend5.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/GroundPainting.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Brushes/brush_circle2 75.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/BulletsEffects.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Shaders/StunOverlay.shader" type="Shader" id=13]
 
 [sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 2 )
-shader_param/r = ExtResource( 7 )
-shader_param/g = ExtResource( 6 )
-shader_param/b = ExtResource( 4 )
-shader_param/a = ExtResource( 3 )
-shader_param/exclude = ExtResource( 5 )
+shader = ExtResource( 3 )
+shader_param/r = ExtResource( 8 )
+shader_param/g = ExtResource( 7 )
+shader_param/b = ExtResource( 5 )
+shader_param/a = ExtResource( 4 )
+shader_param/exclude = ExtResource( 6 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 4096 )
@@ -28,7 +29,7 @@ extents = Vector2( 10, 4096 )
 extents = Vector2( 4096, 10 )
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = ExtResource( 12 )
+shader = ExtResource( 13 )
 shader_param/time_starting = 2.0
 shader_param/time_left = 1.0
 
@@ -46,19 +47,32 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="MainCamera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 2, 2 )
+limit_left = 0
+limit_top = 0
+limit_right = 8192
+limit_bottom = 8192
+drag_margin_left = 0.05
+drag_margin_top = 0.05
+drag_margin_right = 0.05
+drag_margin_bottom = 0.05
+script = ExtResource( 2 )
+
 [node name="Background" type="Sprite" parent="."]
 editor/display_folded = true
 light_mask = 3
 material = SubResource( 1 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 8192, 8192 )
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
-brush = ExtResource( 10 )
+brush = ExtResource( 11 )
 
 [node name="PaintingTools" type="CanvasLayer" parent="Background"]
 
@@ -119,7 +133,7 @@ shape = SubResource( 3 )
 [node name="Debris" type="Node2D" parent="."]
 
 [node name="Bullets" type="Node2D" parent="."]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="Walkers" type="Node2D" parent="."]
 
@@ -136,6 +150,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 texture = SubResource( 6 )
 expand = true
-
 [connection signal="value_changed" from="Background/PaintingTools/StrengthControl/Ordering/BrushStrength" to="Background" method="_on_BrushStrength_value_changed"]
 [connection signal="timeout" from="Timers/ReturnTimer" to="." method="_on_ReturnTimer_timeout"]

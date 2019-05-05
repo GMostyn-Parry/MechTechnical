@@ -19,6 +19,8 @@ var WalkerNode = preload("res://Scenes/Entities/Walker.tscn")
 #Stores a reference to the local player's walker.
 var _local_players_walker
 
+onready var _Camera = $MainCamera #The main camera of the scene.
+
 #Adds a walker to the game at the position and with rotation, representing which player, and if it is the local players.
 #is_local_players is passed to allow the method to be used offline.
 #You can't check the network id when there is no network.
@@ -32,6 +34,9 @@ func _add_walker(spawn_position, spawn_rotation, player_id, is_local_players):
 
 		walker.connect("stun_started", self, "_on_player_walker_stun_started")
 		walker.connect("stun_ended", self, "_on_player_walker_stun_ended")
+
+		#Set target to the player's walker.
+		_Camera.target = walker;
 	#Otherwise, add a regular walker.
 	else:
 		walker = WalkerNode.instance()
@@ -149,20 +154,10 @@ func _handle_dead_walker(walker):
 	#Transform sprite to walker's position.
 	sprite.transform = walker.transform
 
-	#Check if the walker had the camera i.e. was the local player's walker.
-	var camera = walker.get_node_or_null("Camera2D")
-
-	#Prevent the camera from being destroyed when the Walker is freed.
-	if camera:
-		walker.remove_child(camera)
-		add_child(camera)
-
-		#Transform camera to walker's old position.
-		camera.transform = walker.transform
-
 	#Null the reference to the local player's walker if it was the killed walker.
 	if walker == _local_players_walker:
 		_local_players_walker = null
+		_Camera.target = null
 
 	#Pause cleanup to let any remaining RPC calls to arrive.
 	yield(get_tree().create_timer(0.5), "timeout")
