@@ -7,5 +7,5 @@ export_presets.cfg
 # Mono-specific ignores
 .mono/
 
-# Specifc files
-README.txt
+# Project-specific ignores
+Export/
