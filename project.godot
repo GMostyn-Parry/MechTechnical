@@ -23,6 +23,12 @@ config/icon="res://icon.png"
 
 NetworkController="*res://Scripts/NetworkController.gd"
 
+[debug]
+
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
 [importer_defaults]
 
 texture={
@@ -107,7 +113,3 @@ walker_rotate_to_cursor={
 [physics]
 
 2d/default_gravity=0
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"
