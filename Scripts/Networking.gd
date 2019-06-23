@@ -10,6 +10,9 @@ extends Node
 const DEFAULT_PORT = 27005
 const DEFAULT_MAX_PLAYERS = 8
 
+#Speed at which objects sync their state with their peers.
+const TICK_RATE_INTERVAL : float = 1.0 / 60.0
+
 #Stores all of the information on the connected players uses their unique id as an index.
 var _info_players = Dictionary()
 #Stores the information on each team and is indexed by the team's ID.

@@ -66,6 +66,9 @@ var _time_until_unstunned = 0.0
 #The velocity applied to the walker from being shoved aside by a physical attack.
 var _velocity_shove = Vector2()
 
+#Amount of time since the object was last synced with the server.
+var _time_since_last_sync : float = NetworkController.TICK_RATE_INTERVAL
+
 #The Weapon class "mounted" on this Walker.
 var _chassis_gun
 
@@ -158,6 +161,8 @@ func _ready():
 	add_child(_chassis_gun)
 
 func _physics_process(delta):
+	_time_since_last_sync += delta
+
 	#Move walker from a shove action against it, and remove some of the shove force.
 	move_and_slide(_velocity_shove)
 	_velocity_shove -= _velocity_shove * delta * DECELERATE_SHOVE_FACTOR
@@ -172,9 +177,10 @@ func _physics_process(delta):
 		if !is_stunned():
 			emit_signal("stun_ended")
 
-	#Send the walker's transform over the network, if the user is the controller and the walker is still alive.
-	if get_tree().has_network_peer() && is_network_master() && health > 0:
+	#Send the walker's transform over the network, if the user is the controller, the walker is still alive, and we have not updated too recently.
+	if get_tree().has_network_peer() && is_network_master() && health > 0 && _time_since_last_sync >= NetworkController.TICK_RATE_INTERVAL:
 		rpc("_receive_transform", transform)
+		_time_since_last_sync = 0
 
 #Stop the walker's charge, when time runs out.
 func _on_TimerCharge_timeout():
