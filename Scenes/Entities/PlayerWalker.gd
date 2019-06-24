@@ -2,32 +2,10 @@
 Author:	George Mostyn-Parry
 
 An extension of the Walker class to give control over the Walker via player input.
-
-TODO:
-	-	Don't rotate Walker on walk action if walk action has not been held for a brief moment.
-			Stops awkward part-rotation on a double-click for a charge.
 """
 extends "res://Scenes/Entities/Walker.gd"
 
 ## INHERITED ##
-
-func _input(event):
-	#End input processing if the player is stunned.
-	if is_stunned():
-		return
-
-	#Activate the melee attack, if the user input the melee action.
-	if event.is_action_released("walker_melee"):
-		$AudioMelee.play()
-		$RightPunch/TimerMelee.start()
-		$RightPunch.monitoring = true
-	#Cause the walker to charge if the user double clicks the move action.
-	#Only registers double-click on press event.
-	if event is InputEventMouseButton && event.is_action_pressed("walker_move") && event.doubleclick:
-		set_charge_state(ChargeState.TURNING)
-	#Causes the walker to charge if the user releases the charge action, and walker is not currently charging.
-	if event.is_action_released("walker_charge") && _charge_state == ChargeState.NOT_CHARGING:
-		set_charge_state(ChargeState.TURNING)
 
 func _ready():
 	#Create visual representation of the max shooting angle for the player with an arc.
@@ -57,69 +35,28 @@ func _ready():
 	#Set polygon to use calculated arc to show player the shooting arc of their weapon.
 	$ShootingArc.polygon = sector_points
 
+#Handle one-off commands.
+func _input(event):
+	#Move action stopped.
+	if event.is_action_released("walker_move"):
+		Command.StopMoveCommand.new().execute(self)
+	#Shoot action stopped.
+	elif event.is_action_released("walker_shoot"):
+		Command.StopFireCommand.new().execute(self)
+	#Melee action triggered.
+	elif event.is_action_released("walker_melee"):
+		Command.MeleeCommand.new().execute(self)
+	#Charge action triggered.
+	elif (event is InputEventMouseButton && event.is_action_pressed("walker_move") && event.doubleclick) || \
+			event.is_action_released("walker_charge"):
+		Command.ChargeCommand.new().execute(self)
+
+#Handle continuous commands.
 func _physics_process(delta):
-	#Handle polling input if the Walker is not currently stunned.
-	if !is_stunned():
-		#Move the walker, if the user is pressing the move action and the distance to move is not too short.
-		if Input.is_action_pressed("walker_move") && get_local_mouse_position().length() > minimum_move_distance:
-			#Set rotation speed depending on whether the Walker is sprinting, or walking.
-			var rotation_speed = rotation_speed_sprint if _charge_state == ChargeState.CHARGING else rotation_speed_walk
+	#Move in direction of cursor; don't rotate if action is being pressed.
+	if Input.is_action_pressed("walker_move"):
+		Command.MoveCommand.new(delta, get_global_mouse_position(), Input.is_action_pressed("walker_lock_rotation")).execute(self)
 
-			#The angle the Walker needs to rotate to face the target.
-			var angle_to_point = get_local_mouse_position().angle()
-			#The velocity the Walker will rotate modified by the sign of the angle, so it will rotate along the shortest route.
-			var rotation_velocity = delta * rotation_speed * sign(angle_to_point)
-
-			#Stores if the walker reached its rotation goal.
-			var is_finished_rotating = false
-
-			#Don't rotate the walker if the user is pressing to lock rotation.
-			if Input.is_action_pressed("walker_lock_rotation"):
-				#Stop charging if the walker was trying to to turn to target to prevent it just sitting there.
-				if _charge_state == ChargeState.TURNING:
-					set_charge_state(ChargeState.NOT_CHARGING)
-			#Otherwise, rotate the walker normally.
-			else:
-				#Perform a basic rotation if the angle to rotate to is further than the rotation velocity.
-				if abs(angle_to_point) > abs(rotation_velocity):
-					rotate(rotation_velocity)
-				#Otherwise, set rotation to the rotation goal and flag we finished rotating.
-				else:
-					rotation = rotation + angle_to_point
-					is_finished_rotating = true
-
-			#Handle what should happen on each charge state for a movement action.
-			match _charge_state:
-				#Simply move the walker and "slide" it across edges at a walking speed.
-				ChargeState.NOT_CHARGING:
-					move_and_slide(Vector2(speed_walk, 0).rotated(rotation + angle_to_point))
-				#Turn the walker to face the target before charging at it.
-				ChargeState.TURNING:
-					#Update to charging state if the walker finished rotating, otherwise continue turning.
-					_charge_state = ChargeState.CHARGING if is_finished_rotating else ChargeState.TURNING
-				#Charge at the target and handle any collision that may occur.
-				ChargeState.CHARGING:
-					#Move the walker and store collision data.
-					var info_collision = move_and_collide(Vector2(speed_sprint, 0).rotated(rotation) * delta)
-
-					#Stop charging, stun the walker, and shove the crash victim if a collision occured.
-					if info_collision:
-						#Walker must stop charging as it hit something.
-						set_charge_state(ChargeState.NOT_CHARGING)
-						maximise_stun_time(crash_stun_time)
-
-						#Only shove the collider if it can be shoved.
-						if info_collision.collider.has_method("shoved"):
-							#Use a remote procedure call if we are connected over the network.
-							if get_tree().has_network_peer():
-								info_collision.collider.rpc("shoved", position, damage_charge)
-							#Otherwise, just use a regular function call.
-							else:
-								info_collision.collider.shoved(position, damage_charge)
-		#Walker is not charging if it is not moving.
-		else:
-			set_charge_state(ChargeState.NOT_CHARGING)
-
-		#Fire the Walker's gun if the walker has a gun, and the angle is not greater than the maximum angle the walker can fire the weapon.
-		if _chassis_gun && Input.is_action_pressed("walker_shoot") && abs(get_local_mouse_position().angle()) <= max_shoot_angle:
-			_chassis_gun.fire_at(get_global_mouse_position(), position)
+	#Shoot in direction of cursor.
+	if Input.is_action_pressed("walker_shoot"):
+		Command.FireCommand.new(get_global_mouse_position()).execute(self)

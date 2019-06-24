@@ -121,7 +121,7 @@ func _ready():
 		_add_walker(Vector2(200, 200), 0, 1, true)
 
 func _input(event):
-	#Stop input to blend-map of background, if "canvas_stop_input" action pressed.
+	#Toggle input to blend-map of background, if "canvas_stop_input" action pressed.
 	if Input.is_action_just_pressed("canvas_toggle_input"):
 		$Background.toggle_editing()
 
